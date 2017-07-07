@@ -3,6 +3,7 @@ package metrics
 import (
 	"bytes"
 	"text/template"
+	"strings"
 
 	cfclient "github.com/cloudfoundry-community/go-cfclient"
 	"github.com/cloudfoundry/sonde-go/events"
@@ -46,7 +47,7 @@ func (mv *Vars) Compose(providedTemplate string) (string, error) {
 }
 
 func (mv *Vars) Parse(stream *Stream) {
-	mv.App = stream.App.Name
+	mv.App = strings.Replace(stream.App.Name, "-release", "", -1)
 	mv.GUID = stream.App.Guid
 	mv.CellId = stream.Msg.GetIndex()
 	mv.Instance = ""

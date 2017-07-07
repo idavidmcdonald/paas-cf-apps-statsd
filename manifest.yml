@@ -1,4 +1,3 @@
----
 applications:
 - name: metric-exporter
   memory: 100M
@@ -6,3 +5,13 @@ applications:
   buildpack: go_buildpack
   health-check-type: none
   no-route: true
+  env:
+    API_ENDPOINT: https://api.cloud.service.gov.uk
+    STATSD_ENDPOINT: statsd.hostedgraphite.com:8125
+    STATSD_PREFIX: statsd_prefix
+    USERNAME: cloud_foundry_user
+    PASSWORD: cloud_foundry_password
+    SKIP_SSL_VALIDATION: "false"
+    DEBUG: "false"
+    UPDATE_FREQUENCY: "60"
+    METRIC_TEMPLATE: "{{.Space}}.{{.App}}.{{.Instance}}.{{.Metric}}"
